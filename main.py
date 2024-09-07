@@ -1,54 +1,41 @@
+def gelir_ekle(gelirler, miktar):
+    gelirler.append(miktar)
+    print(f"{miktar} TL gelir eklendi.")
 
+def gider_ekle(giderler, miktar):
+    giderler.append(miktar)
+    print(f"{miktar} TL gider eklendi.")
 
-def not_ekle(notlar, yeni_not):
-    notlar.append(yeni_not)
-    print(f"'{yeni_not}' notu eklendi.")
+def bakiye_hesapla(gelirler, giderler):
+    toplam_gelir = sum(gelirler)
+    toplam_gider = sum(giderler)
+    bakiye = toplam_gelir - toplam_gider
+    return bakiye
 
-def notlari_goruntule(notlar):
-    if notlar:
-        print("Notlarınız:")
-        for i, not_ in enumerate(notlar, 1):
-            print(f"{i}. {not_}")
-    else:
-        print("Henüz not eklenmedi.")
-
-def not_sil(notlar, sira):
-    if 0 < sira <= len(notlar):
-        silinen_not = notlar.pop(sira - 1)
-        print(f"'{silinen_not}' notu silindi.")
-    else:
-        print("Geçersiz not numarası.")
-
-def not_defteri():
-    notlar = []
-
+def finans_takip():
+    gelirler = []
+    giderler = []
+    
     while True:
-        print("\nBir işlem seçin:")
-        print("1. Not ekle")
-        print("2. Notları görüntüle")
-        print("3. Not sil")
+        print("1. Gelir Ekle")
+        print("2. Gider Ekle")
+        print("3. Bakiye Hesapla")
         print("4. Çıkış")
-
-        secim = input("Seçiminiz (1/2/3/4): ")
-
+        
+        secim = input("Seçiminizi yapın: ")
+        
         if secim == '1':
-            yeni_not = input("Eklemek istediğiniz notu girin: ")
-            not_ekle(notlar, yeni_not)
-
+            miktar = float(input("Gelir miktarını girin: "))
+            gelir_ekle(gelirler, miktar)
         elif secim == '2':
-            notlari_goruntule(notlar)
-
+            miktar = float(input("Gider miktarını girin: "))
+            gider_ekle(giderler, miktar)
         elif secim == '3':
-            notlari_goruntule(notlar)
-            sira = int(input("Silmek istediğiniz notun numarasını girin: "))
-            not_sil(notlar, sira)
-
+            bakiye = bakiye_hesapla(gelirler, giderler)
+            print(f"Mevcut bakiye: {bakiye} TL")
         elif secim == '4':
-            print("Not Defterinden çıkılıyor.")
             break
-
         else:
-            print("Geçersiz seçim. Lütfen 1, 2, 3 veya 4 seçin.")
+            print("Geçersiz seçim. Lütfen tekrar deneyin.")
 
-not_defteri()
-
+finans_takip()
