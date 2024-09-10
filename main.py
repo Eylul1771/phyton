@@ -1,43 +1,31 @@
-import pygame
-import random
+def asal_mi(sayi):
+    """Girilen sayının asal olup olmadığını kontrol eden fonksiyon."""
+    
+    # 1'den büyük sayılar asal olabilir. Eğer sayı 1 veya daha küçükse, asal değildir.
+    if sayi < 2:
+        return False
+    
+    # 2, tek asal sayıdır. Eğer sayı 2 ise, asaldır.
+    if sayi == 2:
+        return True
+    
+    # Sayı 2'den büyük ve çiftse, asal değildir.
+    if sayi % 2 == 0:
+        return False
+    
+    # Sayının 2'den büyük bir asal olup olmadığını kontrol etmek için,
+    # sayıyı 3'ten başlayarak kareköküne kadar olan tek sayılarla bölmeye çalışıyoruz.
+    for i in range(3, int(sayi**0.5) + 1, 2):
+        if sayi % i == 0:
+            return False
+    
+    return True
 
-# Pygame'i başlat
-pygame.init()
+# Kullanıcıdan bir sayı girmesini isteriz.
+sayi = int(input("Bir sayı girin: "))
 
-# Renkler
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-
-# Ekran boyutu
-SCREEN_WIDTH = 400
-SCREEN_HEIGHT = 600
-
-# Oyun ekranı oluşturma
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption('Flappy Bird')
-
-# FPS ayarı
-clock = pygame.time.Clock()
-FPS = 60
-
-# Kuş ayarları
-BIRD_WIDTH = 50
-BIRD_HEIGHT = 35
-bird_x = 50
-bird_y = SCREEN_HEIGHT // 2
-bird_y_velocity = 0
-gravity = 0.5
-flap_strength = -10
-
-# Boru ayarları
-PIPE_WIDTH = 70
-PIPE_HEIGHT = random.randint(150, 400)
-PIPE_GAP = 150
-pipe_x = SCREEN_WIDTH
-pipe_speed = 3
-
-# Skor ve font
-score = 0
-font = pygame.font.Font(None, 36)
-
-# Kuş
+# Asal olup olmadığını kontrol ederiz.
+if asal_mi(sayi):
+    print(f"{sayi} bir asal sayıdır.")
+else:
+    print(f"{sayi} bir asal sayı değildir.")
