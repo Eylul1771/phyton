@@ -1,0 +1,81 @@
+import pygame
+import os
+
+# Pygame'i başlat
+pygame.init()
+
+# Çalma listesi ve şarkı dosya yolları
+playlist = []
+current_song = None
+
+def load_song(filename):
+    global current_song
+    if current_song:
+        pygame.mixer.music.stop()
+    pygame.mixer.music.load(filename)
+    pygame.mixer.music.play(-1)  # Sonsuz döngü
+    current_song = filename
+
+def add_song_to_playlist(filename):
+    if os.path.isfile(filename):
+        playlist.append(filename)
+        print(f"Şarkı eklendi: {filename}")
+    else:
+        print("Geçersiz dosya yolu!")
+
+def remove_song_from_playlist(filename):
+    if filename in playlist:
+        playlist.remove(filename)
+        print(f"Şarkı kaldırıldı: {filename}")
+    else:
+        print("Şarkı bulunamadı!")
+
+def play_song():
+    if playlist:
+        load_song(playlist[0])
+    else:
+        print("Çalma listesi boş!")
+
+def stop_song():
+    pygame.mixer.music.stop()
+    global current_song
+    current_song = None
+
+def print_playlist():
+    print("Çalma Listesi:")
+    for song in playlist:
+        print(f"- {song}")
+
+def main():
+    while True:
+        print("\nMüzik Çalma Listesi Uygulaması")
+        print("1. Şarkı Ekle")
+        print("2. Şarkı Kaldır")
+        print("3. Çal")
+        print("4. Durdur")
+        print("5. Çalma Listesini Görüntüle")
+        print("6. Çıkış")
+
+        choice = input("Seçiminizi yapın (1-6): ")
+
+        if choice == "1":
+            filename = input("Eklenecek şarkının dosya yolunu girin: ")
+            add_song_to_playlist(filename)
+        elif choice == "2":
+            filename = input("Kaldırılacak şarkının dosya yolunu girin: ")
+            remove_song_from_playlist(filename)
+        elif choice == "3":
+            play_song()
+        elif choice == "4":
+            stop_song()
+        elif choice == "5":
+            print_playlist()
+        elif choice == "6":
+            stop_song()
+            pygame.quit()
+            break
+        else:
+            print("Geçersiz seçim, lütfen tekrar deneyin.")
+
+if __name__ == "__main__":
+    main()
