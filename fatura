@@ -1,0 +1,16 @@
+# Kullanıcıdan fatura tutarını, KDV oranını ve bahşiş miktarını al
+fatura_tutari = float(input("Fatura tutarını girin: "))
+kdv_orani = float(input("KDV oranını girin (% cinsinden): "))
+bahsis_miktari = float(input("Bahşiş miktarını girin (İstemiyorsanız 0 girin): "))
+
+# KDV tutarını hesapla
+kdv_tutari = fatura_tutari * (kdv_orani / 100)
+
+# Nihai toplamı hesapla
+toplam_tutar = fatura_tutari + kdv_tutari + bahsis_miktari
+
+# Sonuçları ekrana yazdır
+print(f"Fatura Tutarı: {fatura_tutari} TL")
+print(f"KDV Tutarı (%{kdv_orani}): {kdv_tutari} TL")
+print(f"Bahşiş: {bahsis_miktari} TL")
+print(f"Nihai Toplam: {toplam_tutar} TL")
